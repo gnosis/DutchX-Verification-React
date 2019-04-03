@@ -1,0 +1,583 @@
+/* Variables */
+// Global File paths
+$images: '../../src/assets/';
+// $fonts: '../../src/styles/fonts/';
+
+// Brand file paths
+$brandImages: '../../src/assets/brand/images/';
+$brandFonts: '../../src/assets/brand/fonts/';
+
+// Media Query Ranges
+$tiny-screen: 340px !default;
+// --------------------------
+$small-screen: 736px !default;
+$small-screen-up: 737px !default;
+$medium-end: 1024px !default;
+// --------------------------
+$desktop-screen: 1025px !default;
+// --------------------------
+// --------------------------
+$tiny-and-down: "only screen and (max-width : #{$tiny-screen})" !default;
+$mobile: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$desktop: "only screen and (min-width : #{$desktop-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-end})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-end})" !default;
+$medium-smallresolutions: 850px !default;
+
+// Tablet orientations
+$tablet-portrait: "(min-device-width: #{$small-screen-up}) and (max-device-width: #{$medium-end}) and (orientation: portrait)" !default;
+$tablet-landscape: "(min-device-width: #{$small-screen-up}) and (max-device-width: #{$medium-end}) and (orientation: landscape)" !default;
+$tablet: "(min-width: #{$small-screen-up}) and (max-width: #{$medium-end}), #{$tablet-portrait}, #{$tablet-landscape}";
+$tablet-no-portrait: "(min-width: #{$small-screen-up}) and (max-width: #{$medium-end}), #{$tablet-landscape}";
+$tablet-small: "(min-width: #{$small-screen-up}) and (max-width: #{$medium-smallresolutions})";
+// $ipad-pro-portrait-breakpoint: "(min-device-width: 1024px) and (max-device-height: 1366px) and (orientation:portrait) and (-webkit-min-device-pixel-ratio: 2)";
+// $ipad-pro-landscape-breakpoint: "(min-device-width: 1024px) and (max-device-height: 1366px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio: 2)";
+
+
+// Global HEX Colors
+$green: #008f41;
+$white: #fff;
+$whiteShade: #eaeef3;
+$black: #333;
+$blackShade: #3d4450;
+$grey: #7c7c8c;
+$greyLight: #f0f2f6;
+$greyText: #526179;
+$greyTextDark: #5c636e;
+$greyBorder: #ced3db;
+$blue: #0072cf;
+$blueShade: #00447b;
+$darkBlue: #1a4977;
+$lightBlue: #4d7398;
+$red: #bf1600;
+$darkRed: #a94442;
+$orange: #ed5a00;
+$lila: #735ab7;
+$colorGNO: #00a6c4;
+$yellow: #fcf8e3;
+$yellowLight: #feefb3;
+$yellowDark: #9f6000;
+
+$max-width: 1090px;
+
+// Fonts
+$helvetica: "Helvetica Neue", Helvetica, sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+$mono: monospace;
+$lucida: 'Lucida Sans', sans-serif;
+$arial: Arial, sans-serif;
+$verdana: Verdana, Geneva, sans-serif;
+
+$BARCODE: "LibreBarcode128Text-Regular", monospace;
+$MEGRIM: "Megrim", monospace;
+
+// Font weights
+$lighter: 300;
+$normal: 400;
+$bold: 500;
+
+// HTML Entity characters (e.g. for use with pseudo-elements)
+$x: "\2715"; // $x: "✕";
+
+// BRAND SETTINGS
+$logoWidth: 144px;                // Logo Width on tablet and greater
+$logoHeight: 52px;                // Logo Height on tablet and greater
+$logoWidth_mobile: auto;          // Logo Width on mobile viewport
+$logoHeight_mobile: 42px;         // Logo height on mobile viewport
+$font: 'SpaceMono', monospace;      // Brand font
+$brandPrimary: $blue;             // Primary color
+$brandPrimaryShade: $blueShade;   // Primary color
+
+// Modals
+$modalColor: rgba(0, 72, 130, 1);;
+$modalColorOpacity: rgba(0, 72, 130, .9);;
+$boxShadowContainer: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+
+/* Font imports */
+@font-face {
+  font-family: 'SpaceMono';
+  src: url("#{$brandFonts}SpaceMono-Regular.woff2") format("woff2"),
+    url("#{$brandFonts}SpaceMono-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpaceMono';
+  src: url("#{$brandFonts}SpaceMono-Bold.woff2") format("woff2"),
+    url("#{$brandFonts}SpaceMono-Bold.ttf") format("ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Disclaimer CSS */
+.disclaimer {
+	width: 100%;
+	max-width: 850px;
+	min-height: 100vh;
+	margin: 0 auto;
+	display: table;
+  
+	a {
+	  color: $blue;
+	  text-decoration: underline;
+	}
+  
+	> span {
+	  width: 100%;
+	  display: flex;
+	  text-align: center;
+	  justify-content: center;
+	  color: $white;
+	  margin: 25px auto;
+	  align-items: center;
+	}
+  
+	> span > img {
+	  margin: 0 15px 0 0;
+	}
+  
+	> span > h1 {
+	  font-weight: $bold;
+	  font-family: $font;
+	  font-size: 2.3em;
+	  color: $blackShade;
+	  letter-spacing: 0;
+	  line-height: 1;
+	}
+  
+	> div {
+	  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+	  // border: 2px solid transparent;
+	  border: none;
+	  background: $white;
+	  min-height: 460px;
+	  border-radius: 3px;
+	  width: 100%;
+	  margin: 25px auto;
+	  display: table;
+	  box-sizing: border-box;
+	  padding: 0;
+	}
+  
+	> div > h2 {
+	  font-size: 1.6em;
+	  color: $brandPrimary;
+	  text-align: center;
+	  line-height: 1;
+	  margin: 25px auto;
+	  font-weight: bold;
+	}
+  
+	> div > form {
+    background-color: #fff;
+    max-width: 100%;
+	  padding: 0 50px 15px;
+	}
+  
+	> div > form .disclaimerBox {
+	  display: flex;
+	  width: 100%;
+	  flex-wrap: nowrap;
+	  margin: 0 0 25px;
+	}
+  
+	> div > form label {
+	  font-size: 1.3em;
+	  color: $greyText;
+	  letter-spacing: 0;
+	  line-height: 1.5;
+	  flex: 1;
+	  box-sizing: border-box;
+  
+	  > b {
+		font-weight: bold;
+	  }
+	}
+  
+	> div > form input {
+	  flex: 0 1 auto;
+	  margin: 4px 0 0;
+	  box-sizing: border-box;
+	}
+  
+	> div > form input:checked + label {
+	  color: $brandPrimary;
+	}
+  }
+  
+  .disclaimerTextbox {
+	height: 200px;
+	width: 100%;
+	overflow: auto;
+	background: #f0f2f6;
+	border-radius: 2px;
+	overflow-y: scroll;
+	padding: 0 15px;
+	box-sizing: border-box;
+	color: $greyText;
+	line-height: 1.5;
+	font-size: 1.3em;
+	margin: -18px 0 18px;
+  
+	> p, span {
+	  color: inherit;
+	  line-height: inherit;
+	}
+  
+	.scrollableDisclaimerList {
+	  list-style: initial;
+	  margin: 0 0 0 20px;
+	  padding: initial;
+  
+	  > li:last-of-type {
+		padding-bottom: 10px;
+	  }
+	}
+  }
+  
+  .disclaimerCookiePolicy {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	flex-flow: column;
+	border-top: 1px solid $grey;
+	padding: 10px 0 0;
+  
+	> div {
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-items: flex-start;
+	  justify-content: flex-start;
+  
+	  > div {
+		display: flex;
+  
+		> div.disclaimerBoxCookie {
+		  display: flex;
+		  margin: auto 10px auto 0;
+		  padding: 2px 0;
+		  width: auto;
+		}
+	  }
+	}
+  
+	> div > p {
+	  font-size: 1.3em;
+	}
+  }
+  
+  .disclaimerFooterActions {
+	display: block;
+	width: 100%;
+	background: #f0f2f6;
+	padding: 10px;
+	box-sizing: border-box;
+  
+	> .buttonCTA {
+	  background: $blue;
+	  color: $white;
+	  max-width: 260px;
+	  text-decoration: none;
+	  font-size: 20px;
+	  line-height: 1;
+	  padding: 18px;
+	  width: 100%;
+  
+	  &.buttonCTA-disabled {
+		background: $grey;
+		color: $white;
+		padding: 18px;
+		font-size: 20px;
+		text-align: center;
+		pointer-events: none;
+	  }
+	}
+  }
+  
+  /* // .modalDisclaimer {
+  //   background: #154471b0;
+  //   border-radius: 40px;
+  //   font-size: 12px;
+  //   margin: 20px auto 0;
+  //   padding: 2px 0;
+  //   width: 30%;
+  // } */
+  
+  .modalDisclaimer {
+	background: #042a52;
+	color: white;
+	font-size: 12px;
+	padding: 2px 0;
+  text-align: center;
+  
+  position: absolute;
+  left: 0; right: 0;
+  }
+  
+  .disclaimerError {
+	color: $red;
+	width: 100%;
+	text-align: center;
+	line-height: 1.5;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin: 1em auto;
+  }
+  
+  .subText {
+	margin-left: 1em;
+  }
+  
+  .green {
+	color: green !important;
+  }
+  
+  .red {
+	color: red !important;
+  }
+	
+	/* Checkboxes */
+	$md-checkbox-margin: 16px 0;
+  $md-checkbox-checked-color: $blue;
+  $md-checkbox-border-color: rgba(0, 0, 0, 0.54);
+  $md-checkbox-border-color-disabled: rgba(0, 0, 0, 0.26);
+  $md-checkbox-checked-color-disabled: rgba(0, 0, 0, 0.26);
+
+  $md-checkbox-size: 18px;
+  $md-checkbox-padding: 4px;
+
+  $md-checkmark-width: 2px;
+  $md-checkmark-color: $white;
+
+.md-checkbox {
+  position: relative;
+  margin: $md-checkbox-margin;
+  text-align: left;
+
+  &.md-checkbox-inline {
+    display: inline-block;
+  }
+
+  label {
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+    }
+
+    &::before {
+      // box
+      width: $md-checkbox-size;
+      height: $md-checkbox-size;
+      background: $white;
+      border: 2px solid $md-checkbox-border-color;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .3s;
+    }
+
+    &::after {
+      // checkmark
+    }
+  }
+
+  input[type="checkbox"] {
+    outline: 0;
+    margin-right: $md-checkbox-size;
+    visibility: hidden;
+
+    &:checked {
+      + label::before {
+        background: $md-checkbox-checked-color;
+        border: none;
+      }
+
+      + label::after {
+
+        $md-checkmark-size: $md-checkbox-size - 2*$md-checkbox-padding;
+
+        transform: rotate(-45deg);
+
+        top: ($md-checkbox-size / 2) - ($md-checkmark-size / 4) - $md-checkbox-size/10;
+        left: $md-checkbox-padding;
+        width: $md-checkmark-size;
+        height: $md-checkmark-size / 2;
+
+        border: $md-checkmark-width solid $md-checkmark-color;
+        border-top-style: none;
+        border-right-style: none;
+      }
+    }
+
+    &:disabled {
+      + label::before {
+        border-color: $md-checkbox-border-color-disabled;
+      }
+
+      &:checked {
+        + label::before {
+          background: $md-checkbox-checked-color-disabled;
+        }
+      }
+    }
+  }
+}
+
+/* Buttons */
+.buttonCTA,
+a.buttonCTA {
+  background: $white;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  min-height: 56px;
+  box-sizing: border-box;
+  font-family: $font;
+  font-size: 18px;
+  color: $brandPrimary;
+  letter-spacing: 0;
+  line-height: 1;
+  vertical-align: middle;
+  will-change: box-shadow;
+  transition: box-shadow .25s ease-in-out;
+  cursor: pointer;
+  outline: 0;
+  margin: auto;
+  border: 0;
+  font-weight: $normal;
+
+  &:hover {
+    box-shadow: 0 6px 14px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.15);
+  }
+
+  &.buttonCTA-disabled {
+    background: #dadde3;
+    color: #013a51;
+    text-align: center;
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  &.blue {
+    background: $brandPrimary;
+    color: $white;
+    text-align: center;
+  }
+
+  &.alt-blue {
+    background: #396898;
+    color: $white !important;
+    text-align: center;
+  }
+
+  &.light-orange {
+    background: $greyLight;
+    color: $black !important;
+    text-align: center;
+  }
+
+  > strong {
+    font-weight: $bold;
+    margin: 0 10px 0 0;
+  }
+
+  > i {
+    margin: 0 0 0 5px;
+    display: inline-block;
+  }
+}
+
+.buttonExit {
+  display: block;
+  font-size: 40px;
+  font-family: $arial;
+  color: $greyBorder;
+  background: 0;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  will-change: color;
+  transition: color .25s ease;
+
+  &:hover {
+    color: $greyText;
+  }
+
+  &::after {
+    content: $x;
+    display: block;
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
+
+.buttonReset {
+  color: $greyTextDark;
+  font-size: .9em;
+  font-family: inherit;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #f2f3f5;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 6px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background: $darkBlue;
+    color: $white;
+    text-decoration: none;
+  }
+
+  .tokenPair & {
+    position: absolute;
+    bottom: 100px;
+
+    @media #{$mobile} {
+      position: absolute;
+      top: 36px;
+      width: 52px;
+      left: 0;
+      right: 0;
+      bottom: initial;
+      font-size: .8em;
+      margin: auto;
+    }
+  }
+}
+
+.buttonPrev {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 15px;
+  height: 18px;
+  width: 24px;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  opacity: .5;
+  will-change: opacity, transform;
+  transition: transform .25s ease-in-out, opacity .25s ease-in-out;
+  bottom: 0;
+  margin: auto;
+  background: url('#{$images}arrowPrev.svg') no-repeat center / contain;
+
+  &:hover {
+    opacity: 1;
+    transform: translateX(-1px);
+  }
+}
