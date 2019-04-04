@@ -1,6 +1,6 @@
 {
   "name": "dutchx-verification-react",
-  "version": "0.0.1",
+  "version": "0.0.1-RC1",
   "description": "Verification React component for DutchX Protocol",
   "main": "build/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/gnosis/DutchX-Verification-React.git"
   },
-  "author": "David Sato",
+  "author": "David Sato<doohhello@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gnosis/DutchX-Verification-React/issues"
