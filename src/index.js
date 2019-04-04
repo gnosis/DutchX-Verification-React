@@ -1,20 +1,19 @@
 import React from 'react'
-
 import localForage from 'localforage'
-window.localForage = localForage
+
+import DefaultTermsText from './components/DefaultTermsText'
+import Imprint from './components/DefaultImprint'
+import DutchXVerificationHOC from './components/DutchXVerificationHOC'
+
 import disclaimerSVG from './assets/disclaimer.svg'
 
 import { web3CompatibleNetwork/* , geoBlockedCitiesToString */ } from './utils'
 
-import Imprint from './components/DefaultImprint'
-
-import DefaultTermsText from './components/DefaultTermsText'
+// Import CSS
+import './styles/global.scss'
 
 // Default Privacy Policy
 // import PrivacyPolicy from './assets/pdf/PrivacyPolicy.pdf'
-
-// Import CSS
-import './styles/global.scss'
 
 // const GEO_BLOCKED_COUNTRIES_LIST = geoBlockedCitiesToString()
 
@@ -48,22 +47,35 @@ class Verification extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault()
+
+    const { 
+      acceptDisclaimer,
+      saveLocalForageVerificationSettings,
+      localForageVerificationKey,
+      localForageCookiesKey,
+    } = this.props
+
     const accepted = this.form.checkValidity()
     this.setState({
       formInvalid: !accepted,
       ...this.state,
     })
+
     // redirect to /
+    // save localForage data - remember network + choices
     if (accepted) {
-      this.props.acceptDisclaimer(true)
-      this.props.saveLocalForageVerificationSettings({
-        disclaimer_accepted: true,
-        networks_accepted: {
-          [this.state.network]: true,
+      acceptDisclaimer(true)
+      saveLocalForageVerificationSettings(
+        {
+          disclaimer_accepted: true,
+          networks_accepted: {
+            [this.state.network]: true,
+          },
         },
-      })
+        localForageVerificationKey,
+      )
     }
-    return localForage.setItem(this.props.localForageCookiesKey, { necessary: true, analytics: !!(this.state.cookies_analytics_accepted) })
+    return localForage.setItem(localForageCookiesKey, { necessary: true, analytics: !!(this.state.cookies_analytics_accepted) })
   }
 
   onChange = () =>
@@ -164,7 +176,7 @@ class Verification extends React.Component {
               <div className="disclaimerBox md-checkbox">
                 <input id="disclaimer5" type="checkbox" required defaultChecked={accepted} disabled={accepted} />
                 <label htmlFor="disclaimer5">
-                  I have read and understood the <a href={this.props.privacyPolicy || 'https://slow.trade/#/PrivacyPolicy.pdf'} target="_blank">Privacy Policy</a>
+                  I have read and understood the <a href={this.props.privacyPolicy || 'https://slow.trade/PrivacyPolicy.pdf'} target="_blank">Privacy Policy</a>
                 </label>
               </div>
 
@@ -215,5 +227,5 @@ class Verification extends React.Component {
   }
 }
 
-export default Verification
+export { Verification as default, DutchXVerificationHOC }
 
