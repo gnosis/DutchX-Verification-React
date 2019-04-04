@@ -1,7 +1,7 @@
 {
-  "name": "dutchx-verification-react",
+  "name": "@gnosis.pm/dutchx-verification-react",
   "version": "0.0.1-RC1",
-  "description": "Verification React component for DutchX Protocol",
+  "description": "Frontend verification React component for DutchX Protocol",
   "main": "build/index.js",
   "scripts": {
     "build": "webpack",
