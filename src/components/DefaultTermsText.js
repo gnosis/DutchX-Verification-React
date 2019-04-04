@@ -1,7 +1,7 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 
-const DefaultTermsText = ({ className = '', privacyPolicy = 'https://slow.trade/#/PrivacyPolicy.pdf' }) => (
+const DefaultTermsText = ({ className = '', cookies = 'https://slow.trade/#/cookies', privacyPolicy = 'https://slow.trade/PrivacyPolicy.pdf' }) => (
     <div className={className}>
         <p>
             <strong>
@@ -97,7 +97,7 @@ const DefaultTermsText = ({ className = '', privacyPolicy = 'https://slow.trade/
                 <div className="subText">
                     4.4.1. Our <a href={privacyPolicy} target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
                     <br />
-                    4.4.2. Our <a to="/cookies">Cookie Policy</a>, which sets out information about the cookies on our site.
+                    4.4.2. Our <a href={cookies} target="_blank" rel="noopener noreferrer">Cookie Policy</a>, which sets out information about the cookies on our site.
                     <br />
                 </div>
                 4.5. We may amend these Terms at our sole discretion. We regularly do so. Every time you wish to use our Platform, please check these Terms to ensure you understand the terms that apply at that time.
