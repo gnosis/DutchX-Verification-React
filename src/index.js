@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState, useDebugValue } from 'react'
 import localForage from 'localforage'
 
 import DefaultTermsText from './components/DefaultTermsText'
+import DefaultPrivacyPolicy from './components/DefaultPrivacyPolicy'
+import DefaultCookies from './components/DefaultCookies'
+
+import DutchXVerificationHOC from './components/HOC/DutchXVerificationHOC'
 import Imprint from './components/DefaultImprint'
-import DutchXVerificationHOC from './components/DutchXVerificationHOC'
+import Modal, { ModalToggler, ModalCloser } from './components/Modal'
 
 import disclaimerSVG from './assets/disclaimer.svg'
 
@@ -17,35 +21,40 @@ import './styles/global.scss'
 
 // const GEO_BLOCKED_COUNTRIES_LIST = geoBlockedCitiesToString()
 
-class Verification extends React.Component {
-  state = {
-    formInvalid: !this.props.accepted,
-    cookies_analytics_accepted: true,
-    loading: true,
-    network: undefined,
-  }
+function Verification(props) {
+  const [cookiesAnalyticsAccepted, setCookiesAnalyticsAccepted] = useState(true)
+  const [formInvalid, setFormInvalid]                           = useState(!props.accepted)
+  const [loading, setLoading]                                   = useState(true)
+  const [network, setNetwork]                                   = useState(undefined)
+  const [showModal, setShowModal]                               = useState({ show: false, type: undefined })
 
-  form = null
+  useDebugValue(showModal && showModal.show ? 'modalOpen ' + showModal.type  : 'modalClosed')
 
-  async componentDidMount() {
-    try {
-      const network = await web3CompatibleNetwork()
-      const [cookieData] = await Promise.all([
-        localForage.getItem(this.props.localForageCookiesKey)
-      ])
-      
-      return this.setState({
-        cookies_analytics_accepted: cookieData ? cookieData.analytics : this.state.cookies_analytics_accepted,
-        loading: false,
-        network,
-      })
-    } catch (err) {
-      console.error(err)
-      throw new Error(err.message)
+  // form validity
+  let form = null
+
+  // ComponentDidMount
+  useEffect(() => {
+    async function mountPrep() {
+      try {
+        const [network, cookieData] = await Promise.all([
+          web3CompatibleNetwork(),
+          localForage.getItem(props.localForageCookiesKey),
+        ])
+        
+        setCookiesAnalyticsAccepted(cookieData && cookieData.analytics)
+        setNetwork(network)
+        setLoading(false)
+      } catch (err) {
+        console.error(err)
+        throw new Error(err.message)
+      }
     }
-  }
 
-  onSubmit = (e) => {
+    mountPrep()
+  }, [])
+
+  const onSubmit = (e) => {
     e.preventDefault()
 
     const { 
@@ -53,13 +62,10 @@ class Verification extends React.Component {
       saveLocalForageVerificationSettings,
       localForageVerificationKey,
       localForageCookiesKey,
-    } = this.props
+    } = props
 
-    const accepted = this.form.checkValidity()
-    this.setState({
-      formInvalid: !accepted,
-      ...this.state,
-    })
+    const accepted = form.checkValidity()
+    setFormInvalid(!accepted)
 
     // redirect to /
     // save localForage data - remember network + choices
@@ -69,27 +75,45 @@ class Verification extends React.Component {
         {
           disclaimer_accepted: true,
           networks_accepted: {
-            [this.state.network]: true,
+            [network]: true,
           },
         },
         localForageVerificationKey,
       )
     }
-    return localForage.setItem(localForageCookiesKey, { necessary: true, analytics: !!(this.state.cookies_analytics_accepted) })
+    return localForage.setItem(localForageCookiesKey, { necessary: true, analytics: !!(cookiesAnalyticsAccepted) })
   }
 
-  onChange = () =>
-    this.setState({
-      formInvalid: !this.form.checkValidity(),
-    })
+  const onChange = () => setFormInvalid(!form.checkValidity())
+  
+  const ModalMap = {
+    COOKIES: (
+      <Modal>
+        <div className="fullModal">
+          <ModalToggler 
+            clickHandler={() => setShowModal({show: !showModal.show, type: undefined})} 
+            component={ModalCloser}
+            // render={() => <span className="modalCloseButton">x</span>}
+          />
+          <DefaultCookies LF_COOKIES_KEY={props.localForageCookiesKey} fontFamily='monospace'/>
+        </div>
+      </Modal>
+    ),
+    PRIVACY: (
+      <Modal>
+        <div className="fullModal">
+          <ModalToggler 
+            clickHandler={() => setShowModal({show: !showModal.show, type: undefined})} 
+            component={ModalCloser}
+          />
+          <DefaultPrivacyPolicy />
+        </div>
+      </Modal>
+    )
+  }
 
-  renderVerification() {
-    const {
-      cookies_analytics_accepted,
-      formInvalid,
-      network,
-    } = this.state
-    const { accepted } = this.props
+  function renderVerification() {
+    const { accepted } = props
 
     let disclaimerConfirmClasses = 'buttonCTA'
     let disclaimerErrorStyle = {
@@ -112,8 +136,8 @@ class Verification extends React.Component {
         <section 
           className="disclaimer" 
           style={{ 
-            fontSize: this.props.relativeFontSize || 12, 
-            fontFamily: this.props.fontFamily || 'monospace'
+            fontSize: props.relativeFontSize || 12, 
+            fontFamily: props.fontFamily || 'monospace'
           }}
         >
 
@@ -126,9 +150,9 @@ class Verification extends React.Component {
             <h2>Please confirm before continuing:</h2>
             <form
               id="disclaimer"
-              ref={c => this.form = c}
-              onSubmit={this.onSubmit}
-              onChange={this.onChange}
+              ref={c => form = c}
+              onSubmit={onSubmit}
+              onChange={onChange}
             >
 
               <div className="disclaimerBox md-checkbox">
@@ -162,12 +186,13 @@ class Verification extends React.Component {
               {network
                 ?
               <div className="disclaimerTextbox">
-                {this.props.render 
+                {props.render 
                   ? 
-                this.props.render() 
+                props.render() 
                   : 
-                <DefaultTermsText 
-                  {...this.props}
+                <DefaultTermsText
+                  showModal={setShowModal}
+                  {...props}
                 />}
               </div>
                 :
@@ -176,21 +201,32 @@ class Verification extends React.Component {
               <div className="disclaimerBox md-checkbox">
                 <input id="disclaimer5" type="checkbox" required defaultChecked={accepted} disabled={accepted} />
                 <label htmlFor="disclaimer5">
-                  I have read and understood the <a href={this.props.privacyPolicy || 'https://slow.trade/PrivacyPolicy.pdf'} target="_blank">Privacy Policy</a>
+                  I have read and understood the <ModalToggler clickHandler={() => setShowModal({show: !showModal.show, type: 'PRIVACY'})} render={() => <span>Privacy Policy</span>}/>
                 </label>
               </div>
 
               {/* COOKIE DISCLAIMER */}
               <div className="disclaimerCookiePolicy">
                 <div>
-                  <p>I agree to the storing of cookies on my device to enhance site navigation and analyze site usage. Please read the {/* <Link to="/cookies">Cookie Policy</Link> */} for more information.</p>
+                  <p>
+                    I agree to the storing of cookies on my device to enhance site navigation and analyze site usage. 
+                    Please read the <ModalToggler 
+                      /* togglerText='Cookie Policy'  */
+                      clickHandler={() => setShowModal({show: !showModal.show, type: 'COOKIES'})} 
+                      render={() => <span>Cookie Policy</span>}
+                    /> for more information.
+                  </p>
                   <div>
                       <div className="disclaimerBoxCookie md-checkbox">
                         <input id="disclaimer5" type="checkbox" required defaultChecked disabled/>
                         <label htmlFor="disclaimer5">Necessary</label>
                       </div>
                       <div className="disclaimerBoxCookie md-checkbox">
-                        <input id="disclaimer6" type="checkbox" onChange={() => this.setState({ cookies_analytics_accepted: !this.state.cookies_analytics_accepted })} defaultChecked={cookies_analytics_accepted} disabled={accepted}/>
+                        <input id="disclaimer6" type="checkbox" 
+                          onChange={() => setCookiesAnalyticsAccepted(!cookiesAnalyticsAccepted)} 
+                          defaultChecked={cookiesAnalyticsAccepted} 
+                          disabled={accepted}
+                        />
                         <label htmlFor="disclaimer6">Analytics</label>
                       </div>
                   </div>
@@ -220,11 +256,14 @@ class Verification extends React.Component {
     )
   }
 
-  render() {
-    const { loading } = this.state
+  const modal = (showModal.show) && ModalMap[showModal.type]
 
-    return loading ? null : this.renderVerification()
-  }
+  return (
+    <>
+      {loading ? null : renderVerification()}
+      {modal}
+    </>
+  )
 }
 
 export { Verification as default, DutchXVerificationHOC }

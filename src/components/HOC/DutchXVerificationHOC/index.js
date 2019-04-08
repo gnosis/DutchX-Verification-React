@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import localForage from 'localforage'
 
-import Verification from '../index'
+import Verification from '../../../index'
 
-import { asyncSaveSettings } from '../helpers/localForage'
+import { asyncSaveSettings } from '../../../helpers/localForage'
 
 export function useLocalForageVerificationSettings(localForageKey) {
     const [disclaimerAccepted, setDisclaimerAccepted] = useState(false)
