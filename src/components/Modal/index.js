@@ -12,7 +12,7 @@ function Modal(props) {
         modalRoot.appendChild(element)
 
         return () => modalRoot.removeChild(element)
-    }, [])
+    }, [props.children])
 
     // disable scroll on body
     useNoScroll()

@@ -1,8 +1,8 @@
 import React from 'react'
 import { ModalToggler } from '../Modal'
 
-const DefaultTermsText = ({ className = '', showModal }) => (
-    <div className={className}>
+const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModal, showPrivacyModal }) => (
+    <div className={className} style={{ fontFamily }}>
         <p>
             <strong>
                 Terms &amp; Conditions of slow.trade
@@ -95,9 +95,9 @@ const DefaultTermsText = ({ className = '', showModal }) => (
                 4.4. The Terms refer to the following additional terms, which also apply to your use of our Platform and are hereby incorporated by reference:
                   <br />
                 <div className="subText">
-                    4.4.1. Our <ModalToggler clickHandler={() => showModal({show: !showModal.show, type: 'PRIVACY'})} render={() => <span>Privacy Policy</span>}/>.
+                    4.4.1. Our <ModalToggler clickHandler={showPrivacyModal} render={() => <span>Privacy Policy</span>}/>.
                     <br />
-                    4.4.2. Our <ModalToggler clickHandler={() => showModal({show: !showModal.show, type: 'COOKIES'})} render={() => <span>Cookie Policy</span>}/>, which sets out information about the cookies on our site.
+                    4.4.2. Our <ModalToggler clickHandler={showCookiesModal} render={() => <span>Cookie Policy</span>}/>, which sets out information about the cookies on our site.
                     <br />
                 </div>
                 4.5. We may amend these Terms at our sole discretion. We regularly do so. Every time you wish to use our Platform, please check these Terms to ensure you understand the terms that apply at that time.

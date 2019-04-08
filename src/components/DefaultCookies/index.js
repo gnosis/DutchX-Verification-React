@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useDebugValue } from 'react'
+import { ModalToggler } from '../Modal'
 
 import dutchXLogo from '../../assets/dutchx.png'
 
 import localForage from 'localforage'
-// import { COMPANY_NAME || 'slow.trade' } from 'globals'
-// import './index.scss'
 
 function DefaultCookies(props) {
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -60,7 +59,7 @@ function DefaultCookies(props) {
         ?
       null
         :
-      <div className="contentPage" style={{fontFamily: props.fontFamily || null}}>
+      <div className="contentPage" style={{ fontFamily: props.fontFamily || 'monospace'}}>
         <article id="cookiesArticle">
           <div className="cookiePageLogo"><img src={dutchXLogo} /></div>
           <br />
@@ -111,12 +110,12 @@ function DefaultCookies(props) {
             <p>
           As described in our
               {' '}
-              <ModalToggler clickHandler={() => setShowModal({show: !showModal.show, type: 'PRIVACY'})} render={() => <span>Privacy Policy</span>}/>
+              <ModalToggler clickHandler={props.showPrivacyModal} render={() => <span>Privacy Policy</span>}/>
             , For general web-browsing of this website, your personal data is not revealed to us, although certain statistical information is available to us via our internet service provider as well as through the use of special tracking technologies. Such information tells us about the pages you are clicking on or the hardware you are using, but not your name, age, address or anything we can use to identify you personally.
             This Cookie Policy sets out some further detail on how and why we use these technologies on our website. The terms "we", "us", and "our" includes d.ex OÜ and any affiliates. The terms “you” and “your” includes our clients, business partners and users of this website. By using our website, you consent to storage and access to cookies and other technologies on your device, in accordance with this Cookie Policy.
             <br />
             <br />
-            Capitalized terms used but not defined here have the respective meanings given to them in the <a href="./PrivacyPolicy.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a to="https://slow.trade/#/terms" target="_blank">Terms and Conditions</a>.
+            Capitalized terms used but not defined here have the respective meanings given to them in the <ModalToggler clickHandler={props.showPrivacyModal} render={() => <span>Privacy Policy</span>}/> and <ModalToggler clickHandler={props.showTermsModal} render={() => <span>Terms and Conditions</span>}/>.
             </p>
             <p>
               <strong>What are cookies?</strong>
@@ -258,11 +257,11 @@ By using this website, you consent to the processing of data about you by Google
               <br />
           On this website, you can always view the latest version of our
               {' '}
-              <a href="./PrivacyPolicy.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              <ModalToggler clickHandler={props.showPrivacyModal} render={() => <span>Privacy Policy</span>}/>
               {' '}
 and our Cookie Policy. We may modify this Cookie Policy from time to time. If we make changes to this Cookie Policy, we will provide notice of such changes, such as by sending an email notification, providing notice through the our website or updating the ‘Last Updated’ date at the beginning of this Cookie Policy. The amended Cookie Policy will be effective immediately after the date it is posted. By continuing to access or use our website after the effective date, you confirm your acceptance of the revised Cookie Policy and all of the terms incorporated therein by reference. We encourage you to review our
               {' '}
-              <a href="./PrivacyPolicy.pdf" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+              <ModalToggler clickHandler={props.showPrivacyModal} render={() => <span>Privacy Policy</span>}/>
               {' '}
 and our Cookie Policy whenever you access or use our website to stay informed about our information practices and the choices available to you.
           If you do not accept changes which are made to this Cookie Policy, or take any measures described above to opt-out by removing or rejecting cookies, you may continue to use this website but accept that it may not display and/or function as intended by us. Any social media channels connected to d.ex OÜ and third party applications will be subject to the privacy and cookie policies and practices of the relevant platform providers which, unless otherwise indicated, are not affiliated or associated with d.ex. OÜ. Your exercise of any rights to opt-out may also impact how our information and content is displayed and/or accessible to you on this website and on other websites.

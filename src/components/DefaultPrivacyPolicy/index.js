@@ -1,8 +1,9 @@
 import React from 'react';
+import { ModalToggler } from '../Modal'
 
 import './index.scss'
 
-const DefaultPrivacyPolicy = () => (
+const DefaultPrivacyPolicy = props => (
     <section id="DefaultPrivacyPolicy" className="c9 c30">
         <p className="c14"><span className="c0 c28 c9">slow.trade</span><span className="c0 c9 c28">&nbsp;Privacy Policy</span><span
                 className="c0">&nbsp;</span></p>
@@ -34,9 +35,9 @@ const DefaultPrivacyPolicy = () => (
                 available, alignment or combination, restriction, erasure or destruction.</span></p>
         <p className="c12 c25"><span className="c1"></span></p>
         <p className="c20"><span className="c3 c27">Capitalized terms used but not defined here have the respective meanings given
-                to them in the</span><span className="c3 c27">&nbsp;</span><span className="c18 c7"><a className="c4"
-                    href="https://www.google.com/url?q=https://slow.trade/%23/terms&amp;sa=D&amp;ust=1554480371637000">Terms
-                    and Conditions</a></span><span className="c1">. </span></p>
+                to them in the</span><span className="c3 c27">&nbsp;</span><span className="c18 c7">
+                <ModalToggler clickHandler={props.showTermsModal} render={() => <span>Terms and Conditions</span>}/>
+                </span><span className="c1">. </span></p>
         <p className="c12"><span className="c1">&nbsp;</span></p>
         <ol className="c2 lst-kix_wkl89xja70k3-0 start" start="1">
             <li className="c12 c17"><span className="c5 c0">NAVIGATING THIS POLICY</span></li>
@@ -128,11 +129,15 @@ const DefaultPrivacyPolicy = () => (
                     site correctly, to optimize the content of our site to ensure the long-term viability of our information
                     technology systems and website technology, and to provide law enforcement authorities with the
                     information necessary for criminal prosecution in case of a cyber-attack.</span></li>
-            <li className="c11"><span className="c3">The legal basis for this processing is our legitimate business interests,
+            <li className="c11">
+                <span className="c3">The legal basis for this processing is our legitimate business interests,
                     namely monitoring and improving our website and the proper protection of our business against risks and
-                    your consent when agreeing to accept </span><span className="c18 c3"><a className="c4"
-                        href="https://www.google.com/url?q=https://slow.trade/%23/cookies&amp;sa=D&amp;ust=1554480371643000">cookies</a></span><span
-                    className="c1 c9">.</span></li>
+                    your consent when agreeing to accept </span>
+                    <span className="c18 c3">
+                        <ModalToggler clickHandler={props.showCookiesModal} render={() => <span>cookies</span>}/>
+                    </span>
+                    <span className="c1 c9">.</span>
+            </li>
         </ol>
         <ol className="c2 lst-kix_wkl89xja70k3-1" start="2">
             <li className="c8"><span className="c0 c9">When using slow.trade</span></li>
@@ -219,9 +224,9 @@ const DefaultPrivacyPolicy = () => (
                     &nbsp;for your web browser, this could also lead to procurements of more Personal Data.</span></li>
             <li className="c11"><span className="c3">For further information and the applicable data protection provisions of
                     MetaMask, please visit </span><span className="c3"><a className="c4"
-                        href="https://www.google.com/url?q=https://metamask.io/privacy.html&amp;sa=D&amp;ust=1554480371647000">&nbsp;</a></span><span
+                        href="https://metamask.io/privacy.html" target="_blank">&nbsp;</a></span><span
                     className="c3 c10"><a className="c4"
-                        href="https://www.google.com/url?q=https://metamask.io/privacy.html&amp;sa=D&amp;ust=1554480371647000">https://metamask.io/privacy.html</a></span><span
+                        href="https://metamask.io/privacy.html" target="_blank">https://metamask.io/privacy.html</a></span><span
                     className="c1 c9">. </span></li>
             <li className="c11"><span className="c3">Please check the privacy policy of </span><span className="c0 c9">your</span><span
                     className="c1 c9">&nbsp;allet provider before injecting to the slow.trade platform.</span></li>
@@ -233,7 +238,7 @@ const DefaultPrivacyPolicy = () => (
             <li className="c11"><span className="c3">We use the Amazon Web Server (AWS) to store, log and database data as described
                     in Section 3.2 c). For further information and the applicable data protection provisions of AWS please
                     visit </span><span className="c10 c3"><a className="c4"
-                        href="https://www.google.com/url?q=https://aws.amazon.com/privacy/?nc1%3Df_pr&amp;sa=D&amp;ust=1554480371648000">https://aws.amazon.com/privacy/?nc1=f_pr</a></span><span
+                        href="https://aws.amazon.com/privacy/?nc1%3Df_pr" target="_blank">https://aws.amazon.com/privacy/?nc1=f_pr</a></span><span
                     className="c1 c9">&nbsp;.</span></li>
         </ol>
         <ol className="c2 lst-kix_wkl89xja70k3-1" start="4">
@@ -243,7 +248,7 @@ const DefaultPrivacyPolicy = () => (
             <li className="c11"><span className="c3">For information purposes, we note here that the DutchX Protocol offers a range
                     of additional Services, including the provision of an Application Programming Interface site
                     (&ldquo;API&rdquo;) at </span><span className="c18 c3"><a className="c4"
-                        href="https://www.google.com/url?q=https://dutchx.d.exchange/api&amp;sa=D&amp;ust=1554480371649000">https://dutchx.d.exchange/api</a></span><span
+                        href="https://dutchx.d.exchange/api" target="_blank">https://dutchx.d.exchange/api</a></span><span
                     className="c3">, which offers anyone &nbsp;easy access to &nbsp;the </span><span
                     className="c0 c9">public</span><span className="c1 c9">&nbsp;information contained on the Ethereum Blockchain
                     regarding the DutchX Protocol .</span></li>
@@ -317,9 +322,9 @@ const DefaultPrivacyPolicy = () => (
                     Regulation EU 2016/679 (General Data Protection Regulation or &ldquo;</span><span
                     className="c0">GDPR</span><span className="c7">&rdquo;). We explain these below. You can find out more about the
                     GDPR and your rights by accessing the</span><span className="c7"><a className="c4"
-                        href="https://www.google.com/url?q=https://ec.europa.eu/info/law/law-topic/data-protection_en&amp;sa=D&amp;ust=1554480371652000">&nbsp;</a></span><span
+                        href="https://ec.europa.eu/info/law/law-topic/data-protection_en" target="_blank">&nbsp;</a></span><span
                     className="c7 c21"><a className="c4"
-                        href="https://www.google.com/url?q=https://ec.europa.eu/info/law/law-topic/data-protection_en&amp;sa=D&amp;ust=1554480371652000">European
+                        href="https://ec.europa.eu/info/law/law-topic/data-protection_en" target="_blank">European
                         Commission&rsquo;s website</a></span><span className="c1">.</span></li>
             <li className="c8"><span className="c0 c13">Right Information and access</span></li>
         </ol>
@@ -478,7 +483,7 @@ const DefaultPrivacyPolicy = () => (
                     your complaint has not been resolved to your satisfaction, you are entitled to make a complaint to the
                     Data Protection Commissioner under the Data Protection Act, which is presently the</span><span
                     className="c7"><a className="c4"
-                        href="https://www.google.com/url?q=http://www.gra.gi&amp;sa=D&amp;ust=1554480371658000">&nbsp;</a></span><span
+                        href="http://www.gra.gi" target="_blank">&nbsp;</a></span><span
                     className="c7">Estonian Data Protection Inspectorate - Andmekaitse Inspektsioon (&ldquo;</span><span
                     className="c0">AI</span><span className="c1">&rdquo;). You may contact the AI on the below details:</span></li>
         </ol>
@@ -490,7 +495,7 @@ const DefaultPrivacyPolicy = () => (
         <p className="c12 c15"><span className="c1">Fax +372 6274 137 </span></p>
         <p className="c12 c15"><span className="c1">e-mail: info@aki.ee </span></p>
         <p className="c12 c15"><span className="c7">website: </span><span className="c18 c7"><a className="c4"
-                    href="https://www.google.com/url?q=http://www.aki.ee/en&amp;sa=D&amp;ust=1554480371659000">http://www.aki.ee/en</a></span>
+                    href="http://www.aki.ee/en" target="_blank">http://www.aki.ee/en</a></span>
         </p>
         <ol className="c2 lst-kix_wkl89xja70k3-2" start="2">
             <li className="c11"><span className="c1">You also have the right to lodge a complaint with the supervisory authority in

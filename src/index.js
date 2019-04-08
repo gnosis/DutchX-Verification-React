@@ -16,9 +16,6 @@ import { web3CompatibleNetwork/* , geoBlockedCitiesToString */ } from './utils'
 // Import CSS
 import './styles/global.scss'
 
-// Default Privacy Policy
-// import PrivacyPolicy from './assets/pdf/PrivacyPolicy.pdf'
-
 // const GEO_BLOCKED_COUNTRIES_LIST = geoBlockedCitiesToString()
 
 function Verification(props) {
@@ -26,9 +23,7 @@ function Verification(props) {
   const [formInvalid, setFormInvalid]                           = useState(!props.accepted)
   const [loading, setLoading]                                   = useState(true)
   const [network, setNetwork]                                   = useState(undefined)
-  const [showModal, setShowModal]                               = useState({ show: false, type: undefined })
-
-  useDebugValue(showModal && showModal.show ? 'modalOpen ' + showModal.type  : 'modalClosed')
+  const [showModal, setShowModal]                               = useState({ show: false, type: undefined, prevType: undefined })
 
   // form validity
   let form = null
@@ -91,11 +86,15 @@ function Verification(props) {
       <Modal>
         <div className="fullModal">
           <ModalToggler 
-            clickHandler={() => setShowModal({show: !showModal.show, type: undefined})} 
+            clickHandler={() => setShowModal({ show: !!(showModal.prevType), type: showModal.prevType })} 
             component={ModalCloser}
-            // render={() => <span className="modalCloseButton">x</span>}
           />
-          <DefaultCookies LF_COOKIES_KEY={props.localForageCookiesKey} fontFamily='monospace'/>
+          <DefaultCookies 
+            LF_COOKIES_KEY={props.localForageCookiesKey} 
+            // fontFamily='monospace' 
+            showPrivacyModal={() => setShowModal({ show: true, type: 'PRIVACY', prevType: 'COOKIES' })}
+            showTermsModal={() => setShowModal({ show: true, type: 'TERMS', prevType: 'COOKIES' })}
+          />
         </div>
       </Modal>
     ),
@@ -103,10 +102,32 @@ function Verification(props) {
       <Modal>
         <div className="fullModal">
           <ModalToggler 
-            clickHandler={() => setShowModal({show: !showModal.show, type: undefined})} 
+            clickHandler={() => setShowModal({ show: !!(showModal.prevType), type: showModal.prevType })} 
             component={ModalCloser}
           />
-          <DefaultPrivacyPolicy />
+          <DefaultPrivacyPolicy 
+            showCookiesModal={() => setShowModal({ show: true, type: 'COOKIES', prevType: 'PRIVACY' })}
+            showTermsModal={() => setShowModal({ show: true, type: 'TERMS', prevType: 'PRIVACY' })}
+          />
+        </div>
+      </Modal>
+    ),
+    TERMS: (
+      <Modal>
+        <div className="fullModal">
+          <ModalToggler 
+            clickHandler={() => setShowModal({ show: !!(showModal.prevType), type: showModal.prevType })} 
+            component={ModalCloser}
+          />
+          <div className="contentPage" tabIndex={1}>
+            <article className="contentArticle">
+              <DefaultTermsText
+                // fontFamily='monospace'
+                showCookiesModal={() => setShowModal({ show: true, type: 'COOKIES', prevType: 'TERMS' })}
+                showPrivacyModal={() => setShowModal({ show: true, type: 'PRIVACY', prevType: 'TERMS' })}
+              />
+            </article>
+          </div>
         </div>
       </Modal>
     )
@@ -191,7 +212,8 @@ function Verification(props) {
                 props.render() 
                   : 
                 <DefaultTermsText
-                  showModal={setShowModal}
+                  showCookiesModal={() => setShowModal({ show: true, type: 'COOKIES' })}
+                  showPrivacyModal={() => setShowModal({ show: true, type: 'PRIVACY' })}
                   {...props}
                 />}
               </div>
@@ -201,7 +223,7 @@ function Verification(props) {
               <div className="disclaimerBox md-checkbox">
                 <input id="disclaimer5" type="checkbox" required defaultChecked={accepted} disabled={accepted} />
                 <label htmlFor="disclaimer5">
-                  I have read and understood the <ModalToggler clickHandler={() => setShowModal({show: !showModal.show, type: 'PRIVACY'})} render={() => <span>Privacy Policy</span>}/>
+                  I have read and understood the <ModalToggler clickHandler={() => setShowModal({show: !showModal.show, type: 'PRIVACY', prevType: undefined})} render={() => <span>Privacy Policy</span>}/>
                 </label>
               </div>
 
@@ -211,8 +233,7 @@ function Verification(props) {
                   <p>
                     I agree to the storing of cookies on my device to enhance site navigation and analyze site usage. 
                     Please read the <ModalToggler 
-                      /* togglerText='Cookie Policy'  */
-                      clickHandler={() => setShowModal({show: !showModal.show, type: 'COOKIES'})} 
+                      clickHandler={() => setShowModal({ show: !showModal.show, type: 'COOKIES', prevType: undefined })} 
                       render={() => <span>Cookie Policy</span>}
                     /> for more information.
                   </p>
@@ -256,7 +277,7 @@ function Verification(props) {
     )
   }
 
-  const modal = (showModal.show) && ModalMap[showModal.type]
+  const modal = showModal.show && ModalMap[showModal.type]
 
   return (
     <>
