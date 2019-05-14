@@ -8,7 +8,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 Terms &amp; Conditions of slow.trade
                 </strong>
             <br />
-            Last updated: January 2019
+            Last updated: May 2019
         </p>
         <div>
             Please read these Terms carefully before participating on our trading platform. These Terms tell you who we are, what we offer and what to do if there is a problem and other important information. If you think that there is a mistake in these Terms, please contact us to discuss at <a href="mailto:legal@slow.trade">legal@slow.trade</a>.
@@ -37,10 +37,12 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                   <br />
                 2.2. You are a consumer if:
                   <br />
-                2.2.1. You are an individual and
-                  <br />
-                2.2.2. You are using our services from us wholly or mainly for your personal use (not for use in connection with your trade, business, craft or profession).
-                  <br />
+                <div className="subText">
+                  2.2.1. You are an individual and
+                    <br />
+                  2.2.2. You are using our services from us wholly or mainly for your personal use (not for use in connection with your trade, business, craft or profession).
+                    <br />
+                </div>
                 2.3. Everyone else is a business customer.
                   <br />
                 2.4. Provisions that only apply to consumers are in <span className="green">GREEN</span> and those that only apply to business customers are in <span className="red">RED</span>.
@@ -48,15 +50,15 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
             </div>
 
             <strong>
-                3. WE PROVIDE A PLATFORM TO INTERACTING WITH THE DUTCHX DECENTRALIZED TRADING PROTOCOL
+                3. WE PROVIDE A PLATFORM TO INTERACTING WITH THE DUTCHX DECENTRALIZED TRADING PROTOCOL AND THE DUTCHX MGN POOL
                 </strong>
             <br />
             <div className="subText">
-                3.1. We provide a graphical user interface on the site https://slow.trade (the “
+                3.1. We provide a graphical user GUI ("GUI") on the site https://slow.trade (the “
                   <strong>
                     Platform
                   </strong>
-                ”) to facilitate you interacting via a digital wallet, vault or storage mechanism (a “
+                ”) and sub-domains, including <a href="https://mgn-pool.slow.trade" target="_blank">https://mgn-pool.slow.trade</a> to facilitate you interacting via a digital wallet, vault or storage mechanism (a “
                   <strong>
                     Wallet
                   </strong>
@@ -64,17 +66,26 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                   <strong>
                     Protocol
                   </strong>
-                ”).
-                  <br />
-                3.2. The Protocol was developed by Gnosis Limited and is governed by a series of smart contracts that allow peer-to-peer trades between users applying a Dutch auction mechanism and without the need for intermediaries on the Ethereum Blockchain. We did not develop and do not operate or maintain or have any control whatsoever over the Protocol, which is to be maintained by a community-run decentralized autonomous organisation, the dxDAO, which is independent and unrelated to us and Gnosis Limited and which we do not control. We are not a custodian or a counterparty to any transactions executed by you on the Protocol. We do not support any other service, particularly we do not provide any order matching, guaranteed prices, order cancellation or similar exchange or trading platform services.
-                  <br />
-                3.3. On our Platform, we assist you in (1) depositing ERC20 tokens listed on our Platform (the “
+                ”) and the DutchX MGN Pool (the "
                   <strong>
-                    Supported Tokens
+                    Pool
                   </strong>
-                ”) for trading against other Supported Tokens via your Wallet into the auction conducted by the Protocol and (2) claiming the Supported Tokens you receive for your trade back to that same Wallet.
+                ").
                   <br />
-                3.4. If you wish to use ETH to trade on the Platform, we offer you an interface to interact with a smart contract developed by Gnosis Limited that wraps your ETH making it ERC20 compliant, which you will be prompted to before the trade.The Platform does not support the un-wrapping of wrapped ETH.
+                3.2. The Protocol and the Pool were developed by Gnosis Limited. The Protocol is governed by a series of smart contracts that allow peer-to-peer trades between users applying a Dutch auction mechanism and without the need for intermediaries on the Ethereum Blockchain. The Pool is a set of two smart contracts (the “<strong>Pool Smart Contracts</strong>”) that run consecutively participating in DutchX auctions with a pooled token balance for a set token trading pair (the “<strong>Pool Supported Tokens</strong>”) deposited by DutchX users (the “<strong>Depositors</strong>”)  for a set trading period (the “<strong>Trading Period</strong>”). In the case of token trading pairs whitelisted on the DutchX, the Pool generates Magnolia (“<strong>MGN</strong>”) that accrue to Depositors in proportion to their share of the Pool balance and may be claimed in addition to any remaining deposited tokens (the “<strong>Remaining Pool Deposit</strong>”, if any) after the Trading Period has ended. We did not develop and do not operate or maintain or have any control whatsoever over the Protocol, which is to be maintained by a community-run decentralized autonomous organisation, the dxDAO, which is independent and unrelated to us and Gnosis Limited and which we do not control. We are not a custodian or a counterparty to any transactions executed by you on the Protocol or the Pool. We do not support any other service, particularly we do not provide any order matching, guaranteed prices, order cancellation or similar exchange or trading platform services.
+                <br />
+                3.3. On our Platform, we assist you in:
+                  <br />
+                  <div className="subText">
+                    3.3.1. Depositing ERC 20 tokens listed on our Platform (the “
+                    <strong>
+                      Supported Tokens
+                    </strong>
+                    ”) for trading against other Supported Tokens via your Wallet into the auction conducted by the Protocol and claiming the Supported Tokens you receive for your trade back to that same Wallet.
+                    <br/>
+                    3.3.2. Depositing Pool Supported Tokens, via your Wallet into the Pool and claiming your Remaining Pool Deposit and your accrued share of the MGN balance back to that same Wallet. 
+                  </div>
+                3.4. If you wish to use ETH to trade on the Platform or the Pool, we offer you a GUI to interact with a smart contract developed by Gnosis Limited that wraps your ETH making it ERC 20 compliant, which you will be prompted to before the trade. The Platform does not support the un-wrapping of wrapped ETH.
                   <br />
             </div>
 
@@ -109,17 +120,22 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
             </div>
 
             <strong>
-                5. WHAT YOU REQUIRE TO USE OUR PLATFORM
+                5. WHAT YOU REQUIRE TO USE OUR PLATFORM AND/OR THE POOL
                 </strong>
             <div className="subText">
-                5.1. Participants may use our Platform to interact with the Protocol and trade Supported Tokens against other Supported Tokens by placing their Supported Tokens via your Wallet into the next auction for that token pair running on the Protocol.
+                5.1. Participants may use our Platform to interact: 
+                <div className="subText">
+                      5.1.1. with the Protocol to trade Supported Tokens against other Supported Tokens by placing their Supported Tokens via your Wallet into the next auction for that token pair running on the Protocol;
+                      <br />
+                      5.1.2. with the Pool and place Pool Supported Tokens into the Pool Smart Contracts to participate as Depositors in the Pool   and claim  any Remaining Pool Deposit (if any),  and corresponding share of accrued MGN following the end of the Trading Period. 
+                </div>
+                <br />
+                5.2. A detailed step-by-step guide on how to use the Platform to trade on the DutchX may be found <a href="https://slow.trade/#/content/HowItWorks" target="_blank">here</a> and to participate in the pool <a href="https://blog.gnosis.pm/walkthrough-how-to-use-the-dutchx-mgn-pool-GUI-8989d26c4799" target="_blank"> here</a>.
                   <br />
-                5.2. A detailed step-by-step guide on how to use the Platform may be found <a to="/content/HowItWorks">here</a>.
-                  <br />
-                5.3. To use the Platform you require:
+                5.3. To use the Platform and the Pool you require:
                   <br />
                 <div className="subText">
-                    5.3.1. A Wallet compatible with the Platform. We currently only support MetaMask as your Wallet, which you may download from <a href="https://metamask.io" target="_blank" rel="noopener noreferrer">www.metamask.io</a>. We have not tested compatibility with any other Wallet.
+                    5.3.1. A Wallet compatible with the Platform. We currently only support MetaMask and the Gnosis Safe as your Wallet, which you may download from <a href="https://metamask.io" target="_blank" rel="noopener noreferrer">https://www.metamask.io</a> and <a href="https://www.safe.gnosis.io" target="_blank" rel="noopener noreferrer">https://www.safe.gnosis.io</a>, respectively. We have not tested compatibility with any other Wallet.
                     <br />
                     5.3.2. We have not tested compatibility with any other Wallet.
                     <br />
@@ -173,7 +189,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 8. YOU ARE RESPONSIBLE TO SECURE YOUR CRYPTOGRAPHIC ASSETS, WE DO NOT TAKE CUSTODY
                 </strong>
             <div className="subText">
-                8.1. You must own and fully control the Wallet you use in connection with our Platform.
+                8.1. You must own and control the Wallet you use in connection with our Platform.
                   <br />
                 8.2. You are responsible for implementing all appropriate measures for securing the Wallet you use for the Platform, including any private key(s), seed words or other credentials necessary to access such storage mechanism(s). By using our Platform, we do not gain custody of any of your private keys.
                   <br />
@@ -200,7 +216,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 11. OUR SITE IS OPTIMISED FOR USERS IN ESTONIA
                 </strong>
             <div className="subText">
-                11.1. The Platform is directed to people residing in Estonia. We do not represent that our Platform is appropriate for use or available in other locations.
+                11.1. The Platform is optimised for users residing in Estonia. We do not represent that our Platform is appropriate for use or available in other locations.
                   <br />
             </div>
             <strong>
@@ -220,7 +236,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                   <br />
                 13.2. You are responsible for configuring your information technology and computer programmes to access our Platform. You should use your own virus protection software.
                   <br />
-                13.3. You must not misuse our Platform by knowingly introducing material that is malicious or technologically harmful. You must not attempt to gain unauthorised access to our Platform, the server on which our interface is stored or any server, computer or database connected to our interface. You must not attack our Platform via a denial-of-service attack or a distributed denial-of service attack. By breaching this provision, you would commit a criminal offence. We will report any such breach to the relevant law enforcement authorities and we will cooperate with those authorities, including, where possible, by disclosing your identity to them. In the event of such a breach, your right to use our Platform will cease immediately.
+                13.3. You must not misuse our Platform by knowingly introducing material that is malicious or technologically harmful. You must not attempt to gain unauthorised access to our Platform, the server on which our GUI is stored or any server, computer or database connected to our GUI. You must not attack our Platform via a denial-of-service attack or a distributed denial-of service attack. By breaching this provision, you would commit a criminal offence. We will report any such breach to the relevant law enforcement authorities and we will cooperate with those authorities, including, where possible, by disclosing your identity to them. In the event of such a breach, your right to use our Platform will cease immediately.
                   <br />
             </div>
             <strong>
@@ -229,9 +245,9 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
             <div className="subText">
                 14.1. You may link to our home page, provided you do so in a way that is fair and legal and does not damage our reputation or take advantage of it. You must not establish a link in such a way as to suggest any form of association, approval or endorsement on our part where none exists. You must not establish a link to our Platform in any website that is not owned by you.
                   <br />
-                14.2. Our interface must not be framed on any other site, nor may you create a link to any part of our interface other than the home page. We reserve the right to withdraw linking permission without notice.
+                14.2. Our GUI must not be framed on any other site, nor may you create a link to any part of our GUI other than the home page. We reserve the right to withdraw linking permission without notice.
                   <br />
-                14.3. The website in which you are linking must comply in all respects with the content standards set out in these Terms. If you wish to link to or make any use of content on our interface other than that set out above, please contact info@slow.trade.
+                14.3. The website in which you are linking must comply in all respects with the content standards set out in these Terms. If you wish to link to or make any use of content on our GUI other than that set out above, please contact info@slow.trade.
                   <br />
             </div>
             <strong>
@@ -244,7 +260,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                   <strong>
                     Supported Actions
                   </strong>
-                ”) and Supported Tokens available through our Platform and may from time to time and without prior notice to you list or delist the Supported Tokens or modify the Supported Actions.
+                ”) and Supported Tokens and Pool Supported Tokens available through our Platform and may from time to time and without prior notice to you list or delist the Supported Tokens and Pool Supported Tokens or modify the Supported Actions.
                   <br />
             </div>
             <strong>
@@ -263,7 +279,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 <div className="subText">
                     17.1.1. you have read and understood the Terms and agree to be bound by them;
                     <br />
-                    17.1.2. you do not rely on, and shall have no remedies in respect of, any statement, representation, assurance or warranty (whether made innocently or negligently) that is not set out in these Terms;
+                    17.1.2. you do not rely on, and shall have no remedy in respect of, any statement, representation, assurance or warranty (whether made innocently or negligently) that is not set out in these Terms;
                     <br />
                     17.1.3. you have reached the legal age of majority applicable to you and you agree to provide legitimate and lawful documentation proving such status if we so request;
                     <br />
@@ -283,7 +299,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                     <br />
                     17.1.11. you shall not use our Platform to trade cryptographic assets that are proceeds of criminal or fraudulent activity;
                     <br />
-                    17.1.12. the Platform, Protocol and the underlying Ethereum Blockchain are in an early development stage and we accordingly do not guarantee an error-free process and give no price or liquidity guarantee;
+                    17.1.12. the Platform, Protocol, the Pool, and the underlying Ethereum Blockchain are in an early development stage and we accordingly do not guarantee an error-free process and give no price or liquidity guarantee;
                     <br />
                     17.1.13. you are using the Platform at your own risk;
                     <br />
@@ -301,9 +317,9 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 18. YOUR INDEMNIFICATION AND LIABILITY TO US
                 </strong>
             <div className="subText">
-                18.1. You agree to release and indemnify, defend and hold us and any of our affiliates harmless, as well as any directors, officers, employees, shareholders and representatives of any of the foregoing, from and against any and all losses, liabilities, damages, costs claims or actions of any kind arising or resulting from your use of our Platform, your breach of these Terms, and any of your acts or omissions that infringe the rights of any person.
+                18.1. You agree to release and indemnify, defend and hold us and any of our affiliates harmless, as well as any directors, officers, employees, contractors, shareholders and representatives of any of the foregoing, from and against any and all losses, liabilities, damages, costs claims or actions of any kind arising or resulting from your use of our Platform, your breach of these Terms, and any of your acts or omissions that infringe the rights of any person.
                   <br />
-                18.2. We reserve the right, at our own expense, to assume exclusive defence and control of any matter otherwise subject to indemnification by you and, in such case, you agree to cooperate with us in the defence of such matter.
+                18.2. We reserve the right, at our own expense, to assume the exclusive defence and control of any matter otherwise subject to indemnification by you and, in such case, you agree to cooperate with us in the defence of such matter.
                   <br />
                 18.3. The indemnity set out here is in addition to, and not in lieu of, any other remedies that may be available to us under applicable law.
                   <br />
@@ -453,29 +469,34 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
         </p>
         <p>
             <strong>
-                RISKS
-                </strong>
+              RISKS
+            </strong>
         </p>
         <p>
-            PRICE FLUCTUATIONS
-                <br />
-            ERC20 tokens are neither legal tender backed by governments nor by assets. The tokens’ value is highly volatile causing price fluctuations, as auctions typically run for some time and trades are not executed instantly.
-              </p>
+          PRICE FLUCTUATIONS
+              <br />
+          ERC 20 tokens are neither legal tender backed by governments nor by assets. The tokens’ value is highly volatile causing price fluctuations, as DutchX auctions typically run for some time and trades are not executed instantly. Accordingly, the price of any Supported Token or Pool Supported Token may drop to nil (0) in any given auction such that you will effectively lose all your funds.
+        </p>
         <p>
-            REGULATORY ACTION
-                <br />
-            We could be impacted by regulatory inquiries or action, which could impede or limit your ability to access or use the Platform.
-              </p>
+          LOSS OF POOL DEPOSITED TOKENS 
+              <br />
+          Due to the mechanism design of the Pool, it is expected that when participating in the Pool any Remaining Pool Deposit will be significantly lower than the Pool Supported Tokens initially deposited and may be nil (0).  
+        </p>
         <p>
-            LOW LIQUIDITY
-                <br />
-            Although trading bots provide minimum liquidity for the Supported Tokens, there is no assurance of an active or liquid trading market for the Supported Tokens. The Supported Tokens are not currency issued by any central bank or national, supra-national or quasi-national organisation, nor are they - unless stated otherwise - backed by any hard assets or other credit. There is therefore no guarantee as to market price or liquidity of the Supported Tokens. Accordingly, we cannot ensure that there will be a market for Supported Tokens, or that our Clearing Prices represent the market price.
-                <br />
-            <br />
-            TECHNICAL UNDERSTANDING
-                <br />
-            Cryptographic assets are described in technical language requiring a comprehensive understanding of computer science and mathematics to appreciate the inherent risks. The availability of Supported Tokens on our Platform do not indicate our approval or disapproval of the underlying technology regarding any Supported Token, and must not replace your own understanding of the risks specific to each Supported Token.
-              </p>
+          REGULATORY ACTION
+              <br />
+          We could be impacted by regulatory inquiries or action, which could impede or limit your ability to access or use the Platform.
+            </p>
+        <p>
+          LOW LIQUIDITY
+              <br />
+          There is no assurance of an active or liquid trading market for the Supported Tokens or Pool Supported Tokens. The Supported Tokens and Pool Supported Tokens are not currency issued by any central bank or national, supra-national or quasi-national organisation, nor are they - unless stated otherwise - backed by any hard assets or other credit. There is therefore no guarantee as to market price or liquidity of the Supported Tokens or Pool Supported Tokens. Accordingly, we cannot ensure that there will be a market for Supported Tokens or Pool Supported Tokens, or that our Clearing Prices represent the market price. 
+              <br />
+          <br />
+          TECHNICAL UNDERSTANDING
+              <br />
+            Cryptographic assets are described in technical language requiring a comprehensive understanding of computer science and mathematics to appreciate the inherent risks. The availability of Supported Tokens or Pool Supported Tokens on our Platform do not indicate our approval or disapproval of the underlying technology regarding any Supported Token or Pool Supported Tokens, and must not replace your own understanding of the risks specific to each Supported Token or Pool Supported Tokens. 
+        </p>
         <p>
             TRANSACTIONS ON ETHEREUM BLOCKCHAIN ARE IMMUTABLE AND IRREVERSIBLE
                 <br />

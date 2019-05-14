@@ -1,17 +1,19 @@
+import { BLOCKED_COUNTRIES } from '../globals'
+
 export const windowLoaded = new Promise((accept, reject) => {
     if (typeof window === 'undefined') {
-      return accept()
+        return accept()
     }
-  
+
     if (typeof window.addEventListener !== 'function') {
-      return reject(new Error('expected to be able to register event listener'))
+        return reject(new Error('expected to be able to register event listener'))
     }
-  
+
     window.addEventListener('load', function loadHandler(event) {
-      window.removeEventListener('load', loadHandler, false)
-  
-      // return setTimeout(() => accept(event), 2000)
-      return accept(event)
+        window.removeEventListener('load', loadHandler, false)
+
+        // return setTimeout(() => accept(event), 2000)
+        return accept(event)
     }, false)
 })
 
@@ -56,4 +58,27 @@ export const web3CompatibleNetwork = async (id) => {
     }
 
     return netID
+}
+
+export const geoBlockedCitiesToString = (extraCountries) =>
+    Object.values({ ...BLOCKED_COUNTRIES, ...extraCountries }).sort().join(', ') + '.'
+
+export const makeCancelable = (promise) => {
+    let hasCanceled_ = false
+
+    const wrappedPromise = new Promise((resolve, reject) => {
+        promise.then(
+            // eslint-disable-next-line prefer-promise-reject-errors
+            val => (hasCanceled_ ? reject({ isCanceled: true }) : resolve(val)),
+            // eslint-disable-next-line prefer-promise-reject-errors
+            error => (hasCanceled_ ? reject({ isCanceled: true }) : reject(error)),
+        )
+    })
+
+    return {
+        promise: wrappedPromise,
+        cancel() {
+            hasCanceled_ = true
+        },
+    }
 }
