@@ -1,6 +1,6 @@
 {
   "name": "@gnosis.pm/dutchx-verification-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Frontend verification React component for DutchX Protocol",
   "main": "build/index.js",
   "scripts": {
