@@ -15,14 +15,14 @@ export function useLocalForageVerificationSettings(localForageKey) {
     useEffect(() => {
         const getLocalForageVerificationSettings = async () => {
             try {
-                const { disclaimer_accepted } = await cancelableGetDisclaimerSettings.promise
+                const localSettings = await cancelableGetDisclaimerSettings.promise
 
-                setDisclaimerAccepted(disclaimer_accepted)
+                if (localSettings && localSettings.disclaimer_accepted) return setDisclaimerAccepted(disclaimer_accepted)
             } catch (error) {
                 if (error.isCanceled) 
                     return console.warn('Mount logic interrupted by unmount - cancelling pending promise(s) and cleaning up')
                 else
-                    return console.error('Error in withDutchXVerification async mount logic: ', err)
+                    return console.error('Error in withDutchXVerification async mount logic: ', error)
             }
         }
 
