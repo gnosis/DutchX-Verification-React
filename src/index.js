@@ -5,18 +5,18 @@ import DefaultTermsText from './components/DefaultTermsText'
 import DefaultPrivacyPolicy from './components/DefaultPrivacyPolicy'
 import DefaultCookies from './components/DefaultCookies'
 
-import DutchXVerificationHOC from './components/HOC/DutchXVerificationHOC'
+import withDutchXVerification from './components/HOC/withDutchXVerification'
 import Imprint from './components/DefaultImprint'
 import Modal, { ModalToggler, ModalCloser } from './components/Modal'
 
 import disclaimerSVG from './assets/disclaimer.svg'
 
-import { web3CompatibleNetwork/* , geoBlockedCitiesToString */ } from './utils'
+import { web3CompatibleNetwork, makeCancelable, geoBlockedCitiesToString } from './utils'
 
 // Import CSS
 import './styles/global.scss'
 
-// const GEO_BLOCKED_COUNTRIES_LIST = geoBlockedCitiesToString()
+const GEO_BLOCKED_COUNTRIES_LIST = geoBlockedCitiesToString()
 
 function Verification(props) {
   const [cookiesAnalyticsAccepted, setCookiesAnalyticsAccepted] = useState(true)
@@ -30,23 +30,31 @@ function Verification(props) {
 
   // ComponentDidMount
   useEffect(() => {
+    const cancellableNetworksAndCookieData = makeCancelable(Promise.all([
+      web3CompatibleNetwork(),
+      localForage.getItem(props.localForageCookiesKey),
+    ]))
+    
     async function mountPrep() {
       try {
-        const [network, cookieData] = await Promise.all([
-          web3CompatibleNetwork(),
-          localForage.getItem(props.localForageCookiesKey),
-        ])
-        
+        const [network, cookieData] = await cancellableNetworksAndCookieData.promise
+                
         setCookiesAnalyticsAccepted(cookieData && cookieData.analytics)
         setNetwork(network)
         setLoading(false)
       } catch (err) {
-        console.error(err)
-        throw new Error(err.message)
+        if (err.isCanceled) 
+            return console.warn('Mount logic interrupted by unmount - cancelling pending promise(s) and cleaning up')
+        else
+            return console.error('Error in Verification async mount logic: ', err)
       }
     }
 
     mountPrep()
+
+    return () => {
+      cancellableNetworksAndCookieData.cancel()
+    }
   }, [])
 
   const onSubmit = (e) => {
@@ -180,7 +188,7 @@ function Verification(props) {
                 <input id="disclaimer1" type="checkbox" required defaultChecked={accepted} disabled={accepted} />
                 <label htmlFor="disclaimer1">
                   I am NEITHER a citizen or resident of, NOR currently located in any of the following states or territories, NOR an entity formed under the laws of:
-                  {/* ' ' + GEO_BLOCKED_COUNTRIES_LIST */}
+                  {' ' + (!!(props.customGeoBlockList) && props.customGeoBlockList || GEO_BLOCKED_COUNTRIES_LIST)}
                 </label>
               </div>
 
@@ -287,5 +295,5 @@ function Verification(props) {
   )
 }
 
-export { Verification as default, DutchXVerificationHOC }
+export { Verification as default, withDutchXVerification }
 
