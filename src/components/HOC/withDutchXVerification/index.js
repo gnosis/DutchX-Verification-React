@@ -5,28 +5,43 @@ import Verification from '../../../index'
 
 import { asyncSaveSettings } from '../../../helpers/localForage'
 
+import { makeCancelable } from '../../../utils'
+
 export function useLocalForageVerificationSettings(localForageKey) {
     const [disclaimerAccepted, setDisclaimerAccepted] = useState(false)
+    
+    const cancelableGetDisclaimerSettings = makeCancelable(localForage.getItem(localForageKey))
 
     useEffect(() => {
         const getLocalForageVerificationSettings = async () => {
-            const { disclaimer_accepted } = await localForage.getItem(localForageKey)
+            try {
+                const { disclaimer_accepted } = await cancelableGetDisclaimerSettings.promise
 
-            setDisclaimerAccepted(disclaimer_accepted)
+                setDisclaimerAccepted(disclaimer_accepted)
+            } catch (error) {
+                if (error.isCanceled) 
+                    return console.warn('Mount logic interrupted by unmount - cancelling pending promise(s) and cleaning up')
+                else
+                    return console.error('Error in withDutchXVerification async mount logic: ', err)
+            }
         }
 
         getLocalForageVerificationSettings()
+
+        return () => {
+            cancelableGetDisclaimerSettings.cancel()
+        }
     }, [])
 
     return disclaimerAccepted
 }
 
-const DutchXVerificationHOC = Component =>
+const withDutchXVerification = Component =>
     (LF_VERIFICATION_KEY, LF_COOKIES_KEY, verificationProps) =>
-        function HOCLogic(props) {
+        function DutchXVerificationHOC(props) {
             const [disclaimerAccepted, setDisclaimerAccepted] = useState(false)
             const preCheckDisclaimer = useLocalForageVerificationSettings(LF_VERIFICATION_KEY)
-
+            
             return (
                 (preCheckDisclaimer || disclaimerAccepted )
                     ? 
@@ -46,4 +61,4 @@ const DutchXVerificationHOC = Component =>
             )
         }
 
-export default DutchXVerificationHOC
+export default withDutchXVerification
