@@ -18,8 +18,8 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 </strong>
             <br /><br />
             <strong>
-                1. WHO WE ARE AND HOW TO CONTACT US
-                </strong>
+              1. WHO WE ARE AND HOW TO CONTACT US
+            </strong>
             <br />
             <div className="subText">
                 1.1. Slow.trade is operated by d.ex OÜ (”
@@ -54,7 +54,7 @@ const DefaultTermsText = ({ className, fontFamily = 'monospace', showCookiesModa
                 </strong>
             <br />
             <div className="subText">
-                3.1. We provide a graphical user GUI ("GUI") on the site https://slow.trade (the “
+                3.1. We provide a graphical user interface ("GUI") on the site https://slow.trade (the “
                   <strong>
                     Platform
                   </strong>
