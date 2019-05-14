@@ -4,7 +4,7 @@
   "description": "Frontend verification React component for DutchX Protocol",
   "main": "build/index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "rm -rf build && webpack",
     "start": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
