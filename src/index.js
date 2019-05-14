@@ -1,22 +1,23 @@
-import React, { useEffect, useState, useDebugValue } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
+import { unstable_batchedUpdates as batchUpdate } from 'react-dom'
 import localForage from 'localforage'
 
 import DefaultTermsText from './components/DefaultTermsText'
 import DefaultPrivacyPolicy from './components/DefaultPrivacyPolicy'
 import DefaultCookies from './components/DefaultCookies'
-
 import withDutchXVerification from './components/HOC/withDutchXVerification'
 import Imprint from './components/DefaultImprint'
 import Modal, { ModalToggler, ModalCloser } from './components/Modal'
 
-import disclaimerSVG from './assets/disclaimer.svg'
-
 import { web3CompatibleNetwork, makeCancelable, geoBlockedCitiesToString } from './utils'
 
+import disclaimerSVG from './assets/disclaimer.svg'
 // Import CSS
 import './styles/global.scss'
 
 const GEO_BLOCKED_COUNTRIES_LIST = geoBlockedCitiesToString()
+
+const functions = new Set()
 
 function Verification(props) {
   const [cookiesAnalyticsAccepted, setCookiesAnalyticsAccepted] = useState(true)
@@ -38,10 +39,14 @@ function Verification(props) {
     async function mountPrep() {
       try {
         const [network, cookieData] = await cancellableNetworksAndCookieData.promise
-                
-        setCookiesAnalyticsAccepted(cookieData && cookieData.analytics)
-        setNetwork(network)
-        setLoading(false)
+        
+        // Batched State Update
+        batchUpdate(() => {
+          setCookiesAnalyticsAccepted(cookieData && cookieData.analytics)
+          setNetwork(network)
+          setLoading(false)
+        })
+        
       } catch (err) {
         if (err.isCanceled) 
             return console.warn('Mount logic interrupted by unmount - cancelling pending promise(s) and cleaning up')
@@ -89,6 +94,7 @@ function Verification(props) {
 
   const onChange = () => setFormInvalid(!form.checkValidity())
   
+  // Memoized version below
   const ModalMap = {
     COOKIES: (
       <Modal>
@@ -141,6 +147,10 @@ function Verification(props) {
     )
   }
 
+  // Memoize ModalMap and only re-render on change in modal TYPE
+  const memoizedModalMap = useMemo(() => ModalMap, [showModal.type])
+  const modal = showModal.show && memoizedModalMap[showModal.type]
+  
   function renderVerification() {
     const { accepted } = props
 
@@ -229,8 +239,8 @@ function Verification(props) {
               null}
 
               <div className="disclaimerBox md-checkbox">
-                <input id="disclaimer5" type="checkbox" required defaultChecked={accepted} disabled={accepted} />
-                <label htmlFor="disclaimer5">
+                <input id="disclaimer4" type="checkbox" required defaultChecked={accepted} disabled={accepted} />
+                <label htmlFor="disclaimer4">
                   I have read and understood the <ModalToggler clickHandler={() => setShowModal({show: !showModal.show, type: 'PRIVACY', prevType: undefined})} render={() => <span>Privacy Policy</span>}/>
                 </label>
               </div>
@@ -284,8 +294,6 @@ function Verification(props) {
       </div>
     )
   }
-
-  const modal = showModal.show && ModalMap[showModal.type]
 
   return (
     <>
