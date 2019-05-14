@@ -263,7 +263,7 @@ function Verification(props) {
                       <div className="disclaimerBoxCookie md-checkbox">
                         <input id="disclaimer6" type="checkbox" 
                           onChange={() => setCookiesAnalyticsAccepted(!cookiesAnalyticsAccepted)} 
-                          defaultChecked={cookiesAnalyticsAccepted} 
+                          defaultChecked 
                           disabled={accepted}
                         />
                         <label htmlFor="disclaimer6">Analytics</label>
