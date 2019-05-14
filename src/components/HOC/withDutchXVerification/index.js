@@ -17,7 +17,7 @@ export function useLocalForageVerificationSettings(localForageKey) {
             try {
                 const localSettings = await cancelableGetDisclaimerSettings.promise
 
-                if (localSettings && localSettings.disclaimer_accepted) return setDisclaimerAccepted(disclaimer_accepted)
+                if (localSettings && localSettings.disclaimer_accepted) return setDisclaimerAccepted(localSettings.disclaimer_accepted)
             } catch (error) {
                 if (error.isCanceled) 
                     return console.warn('Mount logic interrupted by unmount - cancelling pending promise(s) and cleaning up')
